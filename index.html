@@ -98,6 +98,7 @@
             .btn-submit { font-size: 16px; padding: 15px; }
             th, td { font-size: 12px; padding: 10px; }
             .footer-credit { font-size: 14px; }
+            .disabled-overlay { font-size: 20px; }
         }
     </style>
 </head>
@@ -155,8 +156,7 @@
             <form id="regForm" class="form-box">
                 <input type="text" id="uName" class="full" required placeholder="ناوی تەواو">
                 <input type="tel" id="uPhone" required placeholder="ژمارەی مۆبایل">
-                <input type="text" id="uComp" class="full" required list="companyList" placeholder="Select Company">
-                <datalist id="companyList"></datalist>
+                <select id="uComp" class="full" required><option value="">Select Company</option></select>
                 <select id="uGroup"></select>
                 <button type="submit" class="btn-submit" id="btn-sub">تۆمارکردن</button>
             </form>
@@ -314,8 +314,9 @@
         }
 
         statsArea.innerHTML = ''; uGroupSelect.innerHTML = '';
-        const companyList = document.getElementById('companyList');
-        companyList.innerHTML = settings.companies.map(comp => `<option value="${comp}">`).join('');
+        const uCompSelect = document.getElementById('uComp');
+        uCompSelect.innerHTML = '<option value="">Select Company</option>';
+        settings.companies.forEach(comp => uCompSelect.innerHTML += `<option value="${comp}">${comp}</option>`);
         const currentFilterVal = publicFilter.value;
         publicFilter.innerHTML = `<option value="all">${trans[currentLang].filter}</option>`;
 
